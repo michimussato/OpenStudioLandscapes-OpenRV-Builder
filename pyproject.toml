@@ -1,0 +1,102 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools-scm>=9",
+    "setuptools>=80",
+]
+
+[project]
+authors = [
+    { email = "michimussato@etik.com", name = "Michael Mussato" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: OpenStudioLandscapes",
+    "Programming Language :: Python",
+]
+dependencies = [
+    "OpenStudioLandscapes @ git+https://github.com/michimussato/OpenStudioLandscapes.git",
+    "OpenStudioLandscapes-DagsterCodeLocation-StreamingProcess @ git+https://github.com/michimussato/OpenStudioLandscapes-DagsterCodeLocation-StreamingProcess.git",
+    # "PyYAML",
+    # "dagster-postgres==0.25.11",
+    "dagster==1.9.11",
+    "docker-compose-graph @ git+https://github.com/michimussato/docker-compose-graph.git",
+    # "email-validator",
+    # "gitpython",
+    # "human-readable-id",
+    # "nox",
+    # "pydot",
+    "ruamel.yaml",
+    # "snakemd",
+]
+description = "An OpenRV build pipeline ready made by OpenStudioLandscapes."
+dynamic = [
+    "version",
+]
+license-files = [
+    "LICENSE.txt",
+]
+maintainers = [
+    { email = "michimussato@etik.com", name = "Michael Mussato" },
+]
+name = "OpenStudioLandscapes-OpenRV-Builder"
+requires-python = ">=3.11"
+
+[project.entry-points]
+
+[project.optional-dependencies]
+dev = [
+    "dagster-webserver==1.9.11",
+    # "OpenStudioLandscapesUtil-VersionBumper @ git+https://github.com/michimussato/OpenStudioLandscapesUtil-VersionBumper.git",
+    # "OpenStudioLandscapes[lint]",
+    # "OpenStudioLandscapes[readme]",
+    # "OpenStudioLandscapes[sbom]",
+    # "OpenStudioLandscapes[testing]",
+]
+# graphviz = [
+#     "graphviz",
+#     "pipdeptree",
+# ]
+# lint = [
+#     "black",
+#     "isort",
+#     "pre-commit",
+#     "pylint",
+# ]
+# pyproject = [
+#     "OpenStudioLandscapesUtil-VersionBumper @ git+https://github.com/michimussato/OpenStudioLandscapesUtil-VersionBumper.git",
+# ]
+# readme = [
+#     "OpenStudioLandscapesUtil-ReadmeGenerator @ git+https://github.com/michimussato/OpenStudioLandscapesUtil-ReadmeGenerator.git",
+# ]
+# sbom = [
+#     "OpenStudioLandscapes[graphviz]",
+#     "cyclonedx-bom",
+# ]
+# testing = [
+#     "pytest",
+#     "pytest-cov",
+#     "setuptools",
+# ]
+
+[project.readme]
+content-type = "text/markdown; charset=UTF-8"
+file = "README.md"
+
+# [project.scripts]
+# openstudiolandscapes = "OpenStudioLandscapes.cli:run"
+
+[project.urls]
+Homepage = "https://github.com/michimussato/OpenStudioLandscapes-OpenRV-Builder"
+
+[tool.setuptools]
+include-package-data = true
+packages = [
+    "OpenStudioLandscapes.OpenRV_Builder",
+]
+platforms = [
+    "Linux",
+]
+
+[tool.setuptools.package-dir]
+"" = "src"

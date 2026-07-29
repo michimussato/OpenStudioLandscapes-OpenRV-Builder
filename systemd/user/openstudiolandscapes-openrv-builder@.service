@@ -1,0 +1,32 @@
+[Unit]
+# More info on systemd specifiers:
+# - https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html?__goaway_challenge=meta-refresh&__goaway_id=af831620b51d37fbc05006860cc19eca&__goaway_referer=https%3A%2F%2Fduckduckgo.com%2F#Specifiers
+Description=OpenStudioLandscapes-OpenRV-Builder Systemd Unit (User: %u [%U:%G])
+After=docker.service
+Wants=docker.service
+ReloadPropagatedFrom=docker.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+# # Use (potentially existing) .env file:
+# EnvironmentFile=%h/git/repos/OpenStudioLandscapes-OpenRV-Builder/.env
+# # Or specify variables individually:
+Environment="OPENSTUDIOLANDSCAPES_CONFIGS_ROOT=%h/.config/OpenStudioLandscapes"
+Environment="OPENSTUDIOLANDSCPES_OPENRV_BUILDER__NTFY_SENSOR_STATUS=STOPPED"
+Environment="OPENSTUDIOLANDSCPES_OPENRV_BUILDER__CHECK_FOR_NEW_COMMITS_SENSOR_STATUS=STOPPED"
+Environment="OPENSTUDIOLANDSCPES_OPENRV_BUILDER__CHECK_FOR_NEW_COMMITS_SENSOR_INTERVAL=48"
+WorkingDirectory=%h/git/repos/OpenStudioLandscapes-OpenRV-Builder
+# # As Standalone
+# # Important: DAGSTER_HOME is required as absolute path
+# Environment="DAGSTER_HOME=%h/git/repos/OpenStudioLandscapes-OpenRV-Builder/.dagster_home"
+# # Standalone - Option 1:
+# ExecStart=/usr/bin/bash -lc "source .venv/bin/activate && dagster dev --workspace .dagster_home/workspace.yaml --host 0.0.0.0"
+# # Standalone - Option 2:
+# ExecStart=/usr/bin/bash -lc "source .venv/bin/activate && dagster-daemon run --workspace .dagster_home/workspace.yaml --host 0.0.0.0"
+# # As gRPC Code Location:
+# ExecStart=/usr/bin/bash -lc "source .venv/bin/activate && dagster code-server start --host 0.0.0.0 --port 4000 --module-name OpenStudioLandscapes.OpenRV_Builder._definitions_with_upstream_specs"
+
+[Install]
+WantedBy=default.target
