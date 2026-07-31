@@ -66,7 +66,7 @@ cd OpenStudioLandscapes-OpenRV-Builder
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip setuptools setuptools_scm wheel
-pip install --editable .[dev]
+pip install --editable ".[dev]"
 export DAGSTER_HOME="$(pwd)/.dagster_home"
 dagster dev --workspace .dagster_home/workspace.yaml
 ```
