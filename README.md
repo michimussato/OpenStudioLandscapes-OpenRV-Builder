@@ -4,6 +4,7 @@
 
 <!-- TOC -->
 * [OpenStudioLandscapes-OpenRV-Builder](#openstudiolandscapes-openrv-builder)
+  * [TL;DR](#tldr)
   * [Brief](#brief)
   * [Requirements](#requirements)
   * [Configuration Files](#configuration-files)
@@ -52,6 +53,23 @@
 > This is a work in progress so **pull often**. If you find a bug or
 > wrong/incomplete information, please feel free
 > to create an issue.
+
+## TL;DR
+
+> [!IMPORTANT]
+>
+> Check [Requirements](#requirements) first.
+
+```shell
+git clone https://github.com/michimussato/OpenStudioLandscapes-OpenRV-Builder.git
+cd OpenStudioLandscapes-OpenRV-Builder
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip setuptools setuptools_scm wheel
+pip install --editable .[dev]
+export DAGSTER_HOME="$(pwd)/.dagster_home"
+dagster dev --workspace .dagster_home/workspace.yaml
+```
 
 ## Brief
 
