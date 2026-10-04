@@ -53,31 +53,6 @@ dev = [
     # "OpenStudioLandscapes[sbom]",
     # "OpenStudioLandscapes[testing]",
 ]
-# graphviz = [
-#     "graphviz",
-#     "pipdeptree",
-# ]
-# lint = [
-#     "black",
-#     "isort",
-#     "pre-commit",
-#     "pylint",
-# ]
-# pyproject = [
-#     "OpenStudioLandscapesUtil-VersionBumper @ git+https://github.com/michimussato/OpenStudioLandscapesUtil-VersionBumper.git",
-# ]
-# readme = [
-#     "OpenStudioLandscapesUtil-ReadmeGenerator @ git+https://github.com/michimussato/OpenStudioLandscapesUtil-ReadmeGenerator.git",
-# ]
-# sbom = [
-#     "OpenStudioLandscapes[graphviz]",
-#     "cyclonedx-bom",
-# ]
-# testing = [
-#     "pytest",
-#     "pytest-cov",
-#     "setuptools",
-# ]
 
 [project.readme]
 content-type = "text/markdown; charset=UTF-8"
@@ -100,3 +75,14 @@ platforms = [
 
 [tool.setuptools.package-dir]
 "" = "src"
+
+[tool.uv]
+package = true
+
+# # uv add --dev "dagster-webserver<1.10"
+# uv add --group dev "dagster-webserver<1.10"
+[dependency-groups]
+dev = [
+    "dagster-webserver<1.10",
+]
+# uv add --group tests nox tox pytest graphviz pipdeptree cyclonedx-bom
