@@ -39,6 +39,7 @@
   * [Docker: `[output clipped, log limit 2MiB reached]`](#docker-output-clipped-log-limit-2mib-reached)
   * [`stderr: the input device is not a TTY`](#stderr-the-input-device-is-not-a-tty)
   * [Given `docker_config_json` value does not exist: ~/.docker/config.json](#given-docker_config_json-value-does-not-exist-dockerconfigjson)
+  * [`stderr: FATAL:   /etc/subuid mapping found but no user namespace available for fakeroot`](#stderr-fatal---etcsubuid-mapping-found-but-no-user-namespace-available-for-fakeroot)
 * [RnD](#rnd)
   * [Investigate running GitHub Actions locally](#investigate-running-github-actions-locally)
     * [`act`](#act)
@@ -562,7 +563,11 @@ docker_config_json
     For further information visit https://errors.pydantic.dev/2.13/v/assertion_error
 ```
 
+## `stderr: FATAL:   /etc/subuid mapping found but no user namespace available for fakeroot`
 
+- https://mynixos.com/nixpkgs/option/security.allowUserNamespaces
+- https://apptainer.org/docs/admin/1.0/user_namespace.html#user-namespace-requirements
+- https://apptainer.org/docs/user/latest/fakeroot.html#fakeroot-inside-def
 
 ---
 

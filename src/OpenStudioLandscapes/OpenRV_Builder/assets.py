@@ -4511,6 +4511,10 @@ def apptainer_sif_build(
     cmd_apptainer_build.extend(
         [
             "build",
+            # INFO:    /etc/subuid mapping can be ignored with --ignore-subuid
+            # FATAL:   /etc/subuid mapping found but no user namespace available for fakeroot
+            "--ignore-subuid",  # --userns
+            "--ignore-fakeroot-command",
             "--disable-cache",  # cache should not remain on the filesystem to save space
             # https://apptainer.org/docs/user/main/build_a_container.html#alternative-compressors
             # - https://manpages.debian.org/testing/squashfs-tools/mksquashfs.1.en.html#COMPRESSORS_AVAILABLE_AND_COMPRESSOR_SPECIFIC_OPTIONS

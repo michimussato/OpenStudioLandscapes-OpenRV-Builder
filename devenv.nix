@@ -55,10 +55,10 @@
   processes = {
     openstudiolandscapes-openrv-builder = {
       exec = "dagster dev --workspace $DAGSTER_WORKSPACE";
-      env = {
-        OPENSTUDIOLANDSCAPES__CONFIGSTORE_ROOT = "${config.devenv.root}/.config/OpenStudioLandscapes/config-store";
-#        OPENSTUDIOLANDSCAPES__CONFIGSTORE_ROOT = "${config.devenv.root}/.config/OpenStudioLandscapes";
-      };
+      # env = {
+      #   OPENSTUDIOLANDSCAPES__CONFIGSTORE_ROOT = "${config.devenv.root}/.config/OpenStudioLandscapes/config-store";
+#     #    OPENSTUDIOLANDSCAPES__CONFIGSTORE_ROOT = "${config.devenv.root}/.config/OpenStudioLandscapes";
+      # };
     };
     # ping.exec = "ping localhost";
     # server = {
@@ -71,6 +71,11 @@
 
   # https://devenv.sh/services/
   # services.postgres.enable = true;
+  # Todo:
+  #  - [ ] Enable PostgreSQL as backend for Dagster
+  #  - [ ] Is Docker as a service needed?
+  #        - pkgs.docker
+  #        - How would we add $USER to the `docker` group?
 
   # https://devenv.sh/scripts/
 
@@ -83,6 +88,7 @@
   scripts.create_materializations_directory.exec = ''
     # create DAGSTER_HOME
     mkdir -p $DAGSTER_HOME
+    mkdir -p $OPENSTUDIOLANDSCAPES_CONFIGS_ROOT
 
     # copy dagster.yaml template to DAGSTER_HOME
     # if [ ! -f $DAGSTER_HOME/dagster.yaml ]
