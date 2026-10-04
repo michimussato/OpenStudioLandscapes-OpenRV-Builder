@@ -38,6 +38,7 @@
 * [Known Issues](#known-issues)
   * [Docker: `[output clipped, log limit 2MiB reached]`](#docker-output-clipped-log-limit-2mib-reached)
   * [`stderr: the input device is not a TTY`](#stderr-the-input-device-is-not-a-tty)
+  * [Given `docker_config_json` value does not exist: ~/.docker/config.json](#given-docker_config_json-value-does-not-exist-dockerconfigjson)
 * [RnD](#rnd)
   * [Investigate running GitHub Actions locally](#investigate-running-github-actions-locally)
     * [`act`](#act)
@@ -550,6 +551,18 @@ sudo systemctl restart docker.service docker.socket
 
 When running OpenStudioLandscapes-OpenRV-Builder using Systemd unit, the
 `docker run` command has to be called without the `--tty` flag.
+
+## Given `docker_config_json` value does not exist: ~/.docker/config.json
+
+```
+The above exception was caused by the following exception:
+pydantic_core._pydantic_core.ValidationError: 1 validation error for DockerConfigResource
+docker_config_json
+  Assertion failed, Given `docker_config_json` value does not exist: ~/.docker/config.json [type=assertion_error, input_value='~/.docker/config.json', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/assertion_error
+```
+
+
 
 ---
 

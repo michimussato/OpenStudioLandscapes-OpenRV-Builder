@@ -13,8 +13,8 @@
   env = {
     DAGSTER_HOME = "${config.devenv.root}/.dagster_home";
     DAGSTER_WORKSPACE = "${config.devenv.root}/.dagster_home/workspace.yaml";
-    DOCKER_CONFIG_JSON = "~/.docker/config.json";
-    OPENSTUDIOLANDSCAPES_CONFIGS_ROOT = "~/.config/OpenStudioLandscapes";
+    DOCKER_CONFIG_JSON = "${config.devenv.root}/.docker/config.json";
+    OPENSTUDIOLANDSCAPES_CONFIGS_ROOT = "${config.devenv.root}/.config/OpenStudioLandscapes";
     # Sensor Status can be one of:
     # - STOPPED
     # - RUNNING
@@ -52,12 +52,33 @@
 
   # https://devenv.sh/processes/
   # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
+  processes = {
+    openstudiolandscapes-openrv-builder = {
+      exec = "dagster dev --workspace $DAGSTER_WORKSPACE";
+      env = {
+        OPENSTUDIOLANDSCAPES__CONFIGSTORE_ROOT = "${config.devenv.root}/.config/OpenStudioLandscapes/config-store";
+#        OPENSTUDIOLANDSCAPES__CONFIGSTORE_ROOT = "${config.devenv.root}/.config/OpenStudioLandscapes";
+      };
+    };
+    # ping.exec = "ping localhost";
+    # server = {
+    #   exec = "python -m http.server";
+    #   cwd = "./public";
+    # };
+  };
+
+  files."config.json".json = {};
 
   # https://devenv.sh/services/
   # services.postgres.enable = true;
 
   # https://devenv.sh/scripts/
 
+  scripts.openstudiolandscapes-openrv-builder = {
+    exec = ''
+      dagster dev --workspace $DAGSTER_WORKSPACE
+    '';
+  };
 
   scripts.create_materializations_directory.exec = ''
     # create DAGSTER_HOME
