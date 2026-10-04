@@ -15,12 +15,12 @@ classifiers = [
     "Programming Language :: Python",
 ]
 dependencies = [
-    "OpenStudioLandscapes @ git+https://github.com/michimussato/OpenStudioLandscapes.git",
-    "OpenStudioLandscapes-DagsterCodeLocation-StreamingProcess @ git+https://github.com/michimussato/OpenStudioLandscapes-DagsterCodeLocation-StreamingProcess.git",
+    "openstudiolandscapes",
+    "openstudiolandscapes-dagstercodelocation-streamingprocess",
     # "PyYAML",
     # "dagster-postgres==0.25.11",
     "dagster==1.9.11",
-    "docker-compose-graph @ git+https://github.com/michimussato/docker-compose-graph.git",
+    "docker-compose-graph",
     # "email-validator",
     # "gitpython",
     # "human-readable-id",
@@ -28,6 +28,8 @@ dependencies = [
     # "pydot",
     "ruamel.yaml",
     # "snakemd",
+    "pip>=26.2.1",
+    "setuptools-scm>=10.3.4",
 ]
 description = "An OpenRV build pipeline ready made by OpenStudioLandscapes."
 dynamic = [
@@ -78,6 +80,11 @@ platforms = [
 
 [tool.uv]
 package = true
+
+[tool.uv.sources]
+openstudiolandscapes = { git = "https://github.com/michimussato/OpenStudioLandscapes" }
+openstudiolandscapes-dagstercodelocation-streamingprocess = { git = "https://github.com/michimussato/OpenStudioLandscapes-DagsterCodeLocation-StreamingProcess" }
+docker-compose-graph = { git = "https://github.com/michimussato/docker-compose-graph" }
 
 # # uv add --dev "dagster-webserver<1.10"
 # uv add --group dev "dagster-webserver<1.10"
