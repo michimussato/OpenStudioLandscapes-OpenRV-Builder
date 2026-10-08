@@ -67,10 +67,49 @@
     # };
   };
 
+  # Docker Config File
+  # Todo:
+  #  - [ ] This was just a proof of concept
+  #  - [ ] Find a better, clearer implementation
   files."config.json".json = {};
 
+  # dagster.yaml
+  files.".dagster_home/dagster.yaml".yaml = {
+    auto_materialize = {
+      enabled = true;
+      use_sensors = true;
+    };
+    concurrency = {
+      default_op_concurrency_limit = 1;
+    };
+    run_queue = {
+      block_op_concurrency_limited_runs = {
+        enabled = true;
+      };
+      max_concurrent_runs = 1;
+    };
+    telemetry = {
+      enabled = false;
+    };
+  };
+
+  # workspace.yaml
+  files.".dagster_home/workspace.yaml".yaml = {
+    load_from = [
+      {
+        python_module = {
+          module_name = "OpenStudioLandscapes.OpenRV_Builder._definitions_with_upstream_specs";
+          location_name = "OpenStudioLandscapes-OpenRV-Builder";
+        };
+      }
+    ];
+  };
+
   # https://devenv.sh/services/
-  # services.postgres.enable = true;
+#  services.postgres = {
+#    enable = true;
+#    port = 5432;
+#  };
   # Todo:
   #  - [ ] Enable PostgreSQL as backend for Dagster
   #  - [ ] Is Docker as a service needed?
