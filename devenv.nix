@@ -67,10 +67,15 @@
     # };
   };
 
+  # Files
+  # - https://devenv.sh/creating-files/
+  #
   # Docker Config File
   # Todo:
   #  - [ ] This was just a proof of concept
   #  - [ ] Find a better, clearer implementation
+  #        the path to the Docker config.json is
+  #        set in `.config/OpenStudioLandscapes/OpenStudioLandscapes-OpenRV-Builder/resource_docker_config.yaml`
   files."config.json".json = {};
 
   # dagster.yaml
