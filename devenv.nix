@@ -131,14 +131,10 @@
 
   scripts.create_materializations_directory.exec = ''
     # create DAGSTER_HOME
-    mkdir -p $DAGSTER_HOME
+    # - Should be created automatically by the
+    #   `files` section
+    # mkdir -p $DAGSTER_HOME
     mkdir -p $OPENSTUDIOLANDSCAPES_CONFIGS_ROOT
-
-    # copy dagster.yaml template to DAGSTER_HOME
-    # if [ ! -f $DAGSTER_HOME/dagster.yaml ]
-    # then
-    #   cp $DEVENV_ROOT/dagster.yaml.template $DAGSTER_HOME/dagster.yaml
-    # fi
   '';
 
   # https://devenv.sh/basics/
