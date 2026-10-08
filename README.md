@@ -181,7 +181,7 @@ pip install --upgrade pip setuptools setuptools_scm wheel
 > ships with Postgres by default and prevents you from running
 > into such problems. Hence, it is the preferred way or running
 > **OpenStudioLandscapes-OpenRV-Builder**. As an external
-> [**OpenStudioLandscapes**]([**OpenStudioLandscapes**](https://github.com/michimussato/OpenStudioLandscapes)) 
+> [**OpenStudioLandscapes**](https://github.com/michimussato/OpenStudioLandscapes) 
 > [gRPC Code Location](#launch-grpc-code-location), Postgres will automatically be deployed as the database backend.
 
 > [!NOTE]
