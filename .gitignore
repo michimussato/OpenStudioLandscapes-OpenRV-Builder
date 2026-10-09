@@ -58,22 +58,14 @@ MANIFEST
 !.env.TEMPLATE
 tmp*/
 
-
 # Obsidian
 .obsidian/hotkeys.json
 .obsidian/workspace.json
 .obsidian/workspaces.json
 
-# Devenv
-.devenv*
-devenv.local.nix
-devenv.local.yaml
-
-# direnv
-.direnv
-
-# pre-commit
-.pre-commit-config.yaml
+buildx
+.config*
+.dagster_home*
 
 # Devenv
 .devenv*

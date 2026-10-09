@@ -27,7 +27,7 @@
     pkgs.git
     pkgs.docker
     pkgs.apptainer
-#    pkgs.libpq
+    # pkgs.libpq
   ];
 
   languages.python = {
@@ -52,34 +52,10 @@
   # https://devenv.sh/processes/
   # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
   processes = {
-    # default process
-    # `devenv up openstudiolandscapes-openrv-builder`
-#    openstudiolandscapes-openrv-builder = {
-#      ports.dagit.allocate = 3000;
-#      exec = config.processes.openstudiolandscapes-openrv-builder-mysql.exec;
-#    };
-    # `devenv up openstudiolandscapes-openrv-builder-mysql` (same as above)
     openstudiolandscapes-openrv-builder = {
       ports.dagit.allocate = 3000;
-      # allocate default port
-      # ports.dagit.allocate = config.processes.openstudiolandscapes-openrv-builder.ports.dagit.value;
       exec = "dagster dev --port ${toString config.processes.openstudiolandscapes-openrv-builder.ports.dagit.value} --workspace $DAGSTER_WORKSPACE";
     };
-    # `devenv up openstudiolandscapes-openrv-builder-postgresql`
-#    openstudiolandscapes-openrv-builder-postgresql = {
-#      # allocate default port
-#      # ports.dagit.allocate = config.processes.openstudiolandscapes-openrv-builder.ports.dagit.value;
-##      env = {
-##        DAGSTER_HOME = "${config.devenv.root}/.dagster_home_postgres";
-##        DAGSTER_WORKSPACE = "${config.devenv.root}/.dagster_home_postgres/workspace.yaml";
-##      };
-#      exec = "dagster dev --port ${toString config.processes.openstudiolandscapes-openrv-builder.ports.dagit.value} --workspace $DAGSTER_WORKSPACE";
-#    };
-    # ping.exec = "ping localhost";
-    # server = {
-    #   exec = "python -m http.server";
-    #   cwd = "./public";
-    # };
   };
 
   # Files
@@ -131,63 +107,109 @@
     };
   };
 
-  # .dagster_home_mysql/dagster.yaml
-  files.".dagster_home_postgres/dagster.yaml" = {
-    copyMode = "seed";
-    yaml = {
-      auto_materialize = {
-        enabled = true;
-        use_sensors = true;
-      };
-      concurrency = {
-        default_op_concurrency_limit = 1;
-      };
-      run_queue = {
-        block_op_concurrency_limited_runs = {
-          enabled = true;
-        };
-        max_concurrent_runs = 1;
-      };
-      telemetry = {
-        enabled = false;
-      };
-      storage = {
-        postgres = {
-          postgres_db = {
-            username = "postgres";
-            password = "mysecretpassword";
-            hostname = "localhost";
-            db_name = "postgres";
-            port = 5432;
-          };
-        };
-      };
-    };
-  };
+  # # .dagster_home_mysql/dagster.yaml
+  # files.".dagster_home_postgres/dagster.yaml" = {
+  #   copyMode = "seed";
+  #   yaml = {
+  #     auto_materialize = {
+  #       enabled = true;
+  #       use_sensors = true;
+  #     };
+  #     concurrency = {
+  #       default_op_concurrency_limit = 1;
+  #     };
+  #     run_queue = {
+  #       block_op_concurrency_limited_runs = {
+  #         enabled = true;
+  #       };
+  #       max_concurrent_runs = 1;
+  #     };
+  #     telemetry = {
+  #       enabled = false;
+  #     };
+  #     storage = {
+  #       postgres = {
+  #         postgres_db = {
+  #           username = "postgres";
+  #           password = "mysecretpassword";
+  #           hostname = "localhost";
+  #           db_name = "postgres";
+  #           port = 5432;
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
 
-  # .dagster_home_mysql/workspace.yaml
-  files.".dagster_home_postgres/workspace.yaml" = {
-    copyMode = "seed";
-    yaml = {
-      load_from = [
-        {
-          python_module = {
-            module_name = "OpenStudioLandscapes.OpenRV_Builder._definitions_with_upstream_specs";
-            location_name = "OpenStudioLandscapes-OpenRV-Builder";
-          };
-        }
-      ];
-    };
-  };
+  # # .dagster_home_mysql/workspace.yaml
+  # files.".dagster_home_postgres/workspace.yaml" = {
+  #   copyMode = "seed";
+  #   yaml = {
+  #     load_from = [
+  #       {
+  #         python_module = {
+  #           module_name = "OpenStudioLandscapes.OpenRV_Builder._definitions_with_upstream_specs";
+  #           location_name = "OpenStudioLandscapes-OpenRV-Builder";
+  #         };
+  #       }
+  #     ];
+  #   };
+  # };
 
   # https://devenv.sh/services/
-  # `devenv processes up`
-  services.postgres = {
-    enable = false;
-    package = pkgs.postgresql_17;
-    initialDatabases = [{ name = "postgres"; }];
-    port = 5432;
-  };
+  # Test
+  # `pg_isready --host localhost --port 5432 --username postgres`
+  # `devenv processes up postgres`
+  # `devenv processes down postgres`
+  # services.postgres = {
+  #   enable = false;
+  #   package = pkgs.postgresql_17;
+  #   createDatabase = false;
+  #   initdbArgs = [
+# #      "--show"
+  #     #    98 │ VERSION=17.11
+  #     #    99 │ PGDATA=/home/michael/git/backup_copy/repos/OpenStudioLandscapes-OpenRV-Builder/.devenv/state/postgres
+  #     #   100 │ share_path=/nix/store/0m6z1g5zrgngyysmgj7qsvcz0xz8l8a9-postgresql-17.11/share/postgresql
+  #     #   101 │ PGPATH=/nix/store/0m6z1g5zrgngyysmgj7qsvcz0xz8l8a9-postgresql-17.11/bin
+  #     #   102 │ POSTGRES_SUPERUSERNAME=michael
+  #     #   103 │ POSTGRES_BKI=/nix/store/0m6z1g5zrgngyysmgj7qsvcz0xz8l8a9-postgresql-17.11/share/postgresql/postgres.bki
+  #     #   104 │ POSTGRESQL_CONF_SAMPLE=/nix/store/0m6z1g5zrgngyysmgj7qsvcz0xz8l8a9-postgresql-17.11/share/postgresql/postgresql.conf.sample
+  #     #   105 │ PG_HBA_SAMPLE=/nix/store/0m6z1g5zrgngyysmgj7qsvcz0xz8l8a9-postgresql-17.11/share/postgresql/pg_hba.conf.sample
+  #     #   106 │ PG_IDENT_SAMPLE=/nix/store/0m6z1g5zrgngyysmgj7qsvcz0xz8l8a9-postgresql-17.11/share/postgresql/pg_ident.conf.sample
+  #     #   107 │ cp: cannot create regular file '/home/michael/git/backup_copy/repos/OpenStudioLandscapes-OpenRV-Builder/.devenv/state/postgres/postgresql.conf':
+  #     #       │  No such file or directory
+  #     "--debug"
+  #     "--username=postgres"
+  #   ];
+  #   listen_addresses = "localhost,127.0.0.1";
+  #   #listen_addresses = "localhost";
+  #   # listen_addresses = "*";
+  #   initialDatabases = [
+  #     {
+  #       "name" = "postgres";
+  #       "user" = "postgres";
+  #       "pass" = "mysecretpassword";
+  #       # psycopg.errors.InsufficientPrivilege: permission denied for schema public
+  #       # sqlalchemy.exc.ProgrammingError: (psycopg.errors.InsufficientPrivilege) permission denied for schema public
+# #        initialSQL = ''
+# #          CREATE SCHEMA public;
+# #          GRANT USAGE ON SCHEMA public TO postgres;
+# #          GRANT CREATE ON SCHEMA public TO postgres;
+# #          GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO postgres;
+# #        '';
+  #     }
+  #   ];
+  #   port = 5432;
+# #    initialScript = ''
+# #      CREATE ROLE postgres WITH LOGIN PASSWORD 'mysecretpassword' CREATEDB;
+# #    '';
+  #     # ALTER ROLE postgres WITH LOGIN;
+  #     # CREATE SCHEMA public;
+  #     # GRANT USAGE ON SCHEMA public TO postgres;
+  #     # GRANT CREATE ON SCHEMA public TO postgres;
+  #     # GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO postgres;
+# #    '';
+  # };
   # Todo:
   #  - [ ] Enable PostgreSQL as backend for Dagster
   #  - [ ] Is Docker as a service needed?
@@ -206,13 +228,13 @@
   #   '';
   #   # env = {};
   # };
-  scripts.openstudiolandscapes-openrv-builder = {
-#    exec = config.scripts.openstudiolandscapes-openrv-builder-mysql.exec;
-    exec = ''
-      export DAGSTER_HOME=/home/michael/git/backup_copy/repos/OpenStudioLandscapes-OpenRV-Builder/.dagster_home_postgres
-      dagster dev --workspace /home/michael/git/backup_copy/repos/OpenStudioLandscapes-OpenRV-Builder/.dagster_home_postgres/workspace.yaml
-    '';
-  };
+  # scripts.openstudiolandscapes-openrv-builder = {
+# #    exec = config.scripts.openstudiolandscapes-openrv-builder-mysql.exec;
+  #   exec = ''
+  #     export DAGSTER_HOME=/home/michael/git/backup_copy/repos/OpenStudioLandscapes-OpenRV-Builder/.dagster_home_postgres
+  #     dagster dev --workspace /home/michael/git/backup_copy/repos/OpenStudioLandscapes-OpenRV-Builder/.dagster_home_postgres/workspace.yaml
+  #   '';
+  # };
 
   scripts.create_openstudiolandscapes_configs_root.exec = ''
     mkdir -p $OPENSTUDIOLANDSCAPES_CONFIGS_ROOT
@@ -234,36 +256,38 @@
       };
 
     };
-    # `devenv --profile postgresql up openstudiolandscapes-openrv-builder`
-    # `devenv --profile postgresql processes down`
-    postgresql.module = { config, pkgs, ... }: {
-      packages = [ pkgs.libpq ];
-      # is this referring to the services dict defined in this file?
-      services.postgres = {
-        enable = true;
-#        package = pkgs.postgresql_17;
-#        createDatabase = true;
-##        # TBD: hbaConf = builtins.readFile ./my-custom/directory/to/pg_hba.conf;
-##        initdbArgs = [
-##          "--locale=C"
-##          "--encoding=UTF8"
-##        ];
-##        # PGHOST
-##        listen_addresses = "localhost";
-##        port = 5432;
-#        initialDatabases = [
-#          {
-#            "name" = "postgres";
-#            "user" = "postgres";
-#            "pass" = "mysecretpassword";
-#          }
-#        ];
-      };
-      env = {
-        DAGSTER_HOME = "${config.devenv.root}/.dagster_home_postgres";
-        DAGSTER_WORKSPACE = "${config.devenv.root}/.dagster_home_postgres/workspace.yaml";
-        DB_HOST = config.env.PGHOST;
-      };
-    };
+    # Todo
+    #  - [ ] PostgreSQL does not work yet
+#     # `devenv --profile postgresql up openstudiolandscapes-openrv-builder`
+#     # `devenv --profile postgresql processes down`
+#     postgresql.module = { config, pkgs, ... }: {
+#       packages = [ pkgs.libpq ];
+#       # is this referring to the services dict defined in this file?
+#       services.postgres = {
+#         enable = true;
+# #        package = pkgs.postgresql_17;
+# #        createDatabase = true;
+# ##        # TBD: hbaConf = builtins.readFile ./my-custom/directory/to/pg_hba.conf;
+# ##        initdbArgs = [
+# ##          "--locale=C"
+# ##          "--encoding=UTF8"
+# ##        ];
+# ##        # PGHOST
+# ##        listen_addresses = "localhost";
+# ##        port = 5432;
+# #        initialDatabases = [
+# #          {
+# #            "name" = "postgres";
+# #            "user" = "postgres";
+# #            "pass" = "mysecretpassword";
+# #          }
+# #        ];
+#       };
+#       env = {
+#         DAGSTER_HOME = "${config.devenv.root}/.dagster_home_postgres";
+#         DAGSTER_WORKSPACE = "${config.devenv.root}/.dagster_home_postgres/workspace.yaml";
+#         # DB_HOST = config.env.PGHOST;
+#       };
+#     };
   };
 }
