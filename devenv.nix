@@ -67,7 +67,10 @@
   #  - [ ] Find a better, clearer implementation
   #        the path to the Docker config.json is
   #        set in `.config/OpenStudioLandscapes/OpenStudioLandscapes-OpenRV-Builder/resource_docker_config.yaml`
-  files."config.json".json = {};
+  files.".docker/config.json" = {
+    copyMode = "symlink";
+    json = {};
+  };
 
   # .dagster_home_mysql/dagster.yaml
   files.".dagster_home_mysql/dagster.yaml" = {
