@@ -4497,6 +4497,8 @@ def apptainer_sif_build(
 
     cmd_apptainer_build = [
         *[f"{k}={v.as_posix()}" for k, v in env.items()],
+        # "pkexec"  # -> command not found
+        shutil.which("pkexec"),  # "/run/wrappers/bin/pkexec",
         shutil.which("apptainer"),
         "--config", write_apptainer_conf.as_posix(),
     ]
