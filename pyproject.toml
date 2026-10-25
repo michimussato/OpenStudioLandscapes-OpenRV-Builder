@@ -30,6 +30,8 @@ dependencies = [
     # "snakemd",
     "pip>=26.2.1",
     "setuptools-scm>=10.3.4",
+    "dagster-postgres>=0.25.11",
+    "psycopg>=3.3.6",
 ]
 description = "An OpenRV build pipeline ready made by OpenStudioLandscapes."
 dynamic = [

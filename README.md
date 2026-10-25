@@ -1,3 +1,7 @@
+[![Built with devenv](https://devenv.sh/assets/devenv-badge.svg)](https://devenv.sh)
+
+---
+
 [![ Logo OpenStudioLandscapes ](https://github.com/michimussato/OpenStudioLandscapes/raw/main/media/images/logo128.png)](https://github.com/michimussato/OpenStudioLandscapes) 💙 [![Open RV](https://github.com/AcademySoftwareFoundation/OpenRV/raw/main/docs/images/OpenRV_icon.png)](https://github.com/AcademySoftwareFoundation/OpenRV.git)
 
 ---
@@ -104,6 +108,9 @@ independent [standalone build system](#run-standalone).
 Builds for:
 - [x] [Rocky 9 (Tarball)](#tarball)
 - [x] [Apptainer](#apptainer-sif)
+  - [Non-standard ldconfig / Nix & Guix Environments](https://apptainer.org/docs/admin/main/installation.html#non-standard-ldconfig-nix-guix-environments)
+  - [GPU Library Configuration](https://apptainer.org/docs/admin/main/configfiles.html#gpu-library-configuration)
+  - [GPU and other Device Support](https://apptainer.org/docs/user/main/gpu.html)/[GPU and other Device Support](https://github.com/apptainer/apptainer-userdocs/blob/main/gpu.rst)
 
 Todo:
 - [ ] Build for MacOS

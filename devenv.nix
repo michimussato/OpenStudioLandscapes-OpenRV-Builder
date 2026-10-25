@@ -27,6 +27,9 @@
     pkgs.git
     pkgs.docker
     pkgs.apptainer
+    # pkgs.gocryptfs  # This is actually a runtime dependency
+    # pkgs.sudo
+    # pkgs.polkit  # pkexec
     # pkgs.libpq
   ];
 
@@ -160,6 +163,7 @@
   # };
 
   # https://devenv.sh/services/
+  # - https://youtu.be/joIeF6uuMC0?list=PLfdfqqNJDWhcDaR3vzn1PtT2aGrl4UiSk&t=949
   # Test
   # `pg_isready --host localhost --port 5432 --username postgres`
   # `devenv processes up postgres`
