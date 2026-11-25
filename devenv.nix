@@ -151,15 +151,14 @@
       storage = {
         postgres = {
           postgres_db = {
-            # username = builtins.getEnv "USER";
             db_name = config.env.POSTGRES_DB;
             username = config.env.POSTGRES_USER;
+            # username = builtins.getEnv "USER";
             password = config.env.POSTGRES_PASSWORD;
-            # hostname = "miniboss.meemoo.lan";
             hostname = "localhost";
-            # port = toString config.processes.postgres.ports.postgres.value;
+            # I have not found this anywhere in the docs:
+            # - why not `config.services.postgres.port.value`?
             port = config.services.postgres.port;
-            # port = toString config.processes.postgres.ports.postgres.value;
           };
         };
       };
