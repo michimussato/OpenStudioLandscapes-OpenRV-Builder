@@ -48,6 +48,10 @@
   * [Investigate running GitHub Actions locally](#investigate-running-github-actions-locally)
     * [`act`](#act)
   * [Investigate Dagster Automation](#investigate-dagster-automation)
+* [Nix](#nix)
+  * [Python in NixOS](#python-in-nixos)
+  * [Devenv](#devenv)
+  * [Postgres](#postgres)
 <!-- TOC -->
 
 ---
@@ -647,3 +651,47 @@ Resources:
       )
   )
   ```
+
+---
+
+# Nix
+
+## Python in NixOS
+
+- https://www.reddit.com/r/NixOS/comments/q71v0e/what_is_the_correct_way_to_setup_pip_with_nix_to/
+  - https://www.youtube.com/watch?v=TbIHRHy7_JM
+- https://wiki.nixos.org/wiki/Python
+  - https://github.com/pyproject-nix/pyproject.nix
+
+## Devenv
+
+```shell
+devenv --profile dagster-postgres-profile up
+```
+
+## Postgres
+
+Run test instance:
+
+```shell
+docker \
+    run \
+    -it \
+    --rm \
+    -p 5432:5432 \
+    -e POSTGRES_DB=postgres \
+    -e POSTGRES_PASSWORD=mysecretpassword \
+    -e POSTGRES_USER=postgres \
+    docker.io/postgres:17.12
+```
+
+Launch Dagster manually:
+
+```shell
+export DAGSTER_HOME="/home/michael/git/backup_copy/repos/OpenStudioLandscapes-OpenRV-Builder/.dagster_home_postgres"
+dagster dev --log-level=debug --port=3000 --workspace="/home/michael/git/backup_copy/repos/OpenStudioLandscapes-OpenRV-Builder/.dagster_home_postgres/workspace.yaml"
+```
+
+Launch Dagster through `devenv` with external Postgres:
+
+`devenv --profile dagster-postgres-profile up`
