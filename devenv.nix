@@ -29,10 +29,7 @@
 
     POSTGRES_USER = "postgres";
     POSTGRES_PASSWORD = "mysecretpassword";
-    # hostname = "miniboss.meemoo.lan";
-    # hostname = "localhost";
     POSTGRES_DB = "postgres";
-    # POSTGRES_PORT = 7654;
   };
 
   # https://devenv.sh/packages/
@@ -77,11 +74,6 @@
       ports.dagit.allocate = 3000;
       exec = "";
     };
-#    postgres = {
-#      # ports.postgres.allocate = 6543;
-#      # /nix/store/x2wqaprlzcyrj90vrildw08iii70s331-start-postgres/bin/start-postgres
-#      exec = "createuser --superuser your_username";
-#    };
   };
 
   # Files
@@ -166,7 +158,8 @@
             # hostname = "miniboss.meemoo.lan";
             hostname = "localhost";
             # port = toString config.processes.postgres.ports.postgres.value;
-            port = 5432;
+            port = config.services.postgres.port;
+            # port = toString config.processes.postgres.ports.postgres.value;
           };
         };
       };
@@ -282,6 +275,7 @@
         package = pkgs.postgresql_17;
         listen_addresses = "*";
         port = 5432;
+        # port = 7654;
         initialScript = ''
           ALTER ROLE postgres WITH LOGIN;
           CREATE SCHEMA public;
@@ -304,3 +298,7 @@
 
   };
 }
+
+# Todo
+#  - [x] make sure that pg port used is reflected
+#        dagster.yaml
